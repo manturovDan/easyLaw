@@ -5,6 +5,8 @@ from src import db
 
 auth = Blueprint('auth', __name__)
 
+processing = None
+
 with create_app().app_context():
     processing = AuthProcessing(db.engine)
 
@@ -20,8 +22,9 @@ def signup_post():
     password = request.form.get('password')
 
     print(login + " " + password)
-    print(AuthProcessing.encrypt_string(password))
+    hash = AuthProcessing.encrypt_string(password)
+    print(hash)
 
-
+    processing.auth_user(login, hash)
 
     return "lol"

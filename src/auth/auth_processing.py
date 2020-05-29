@@ -13,11 +13,14 @@ class AuthProcessing:
         sha_signature = hashlib.sha256(hash_string.encode()).hexdigest()
         return sha_signature
 
-    @staticmethod
     def auth_user(self, login, hash):
-        query = "SELECT id FROM USERS WHERE account='" + login + "' AND password='" + hash + "';"
+        query = "SELECT id FROM users WHERE account='" + login + "' AND hash='" + hash + "';"
 
+        print(query)
         with self.engine.connect() as con:
             rs = con.execute(query)
 
-            print(rs[0])
+            print("A")
+            for row in rs:
+                print(row)
+            print("B")
