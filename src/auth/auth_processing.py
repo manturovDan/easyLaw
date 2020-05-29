@@ -25,8 +25,8 @@ class AuthProcessing:
             rs = con.execute(query)
 
             for row in rs:
-                print(row)
-                self.create_session(row[0])
+                return row[0], self.create_session(row[0])
+            return 0, ""
 
     def create_session(self, id):
         secret = ''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(256))
@@ -34,4 +34,5 @@ class AuthProcessing:
         query = "INSERT INTO sessions (user, time, hash) VALUES ('" + str(id) + "', '" + datetime.datetime.now().isoformat(' ') + "', '" + hash_val + "');"
 
         with self.engine.connect() as con:
-            rs = con.execute(query)
+            con.execute(query)
+        return hash_val

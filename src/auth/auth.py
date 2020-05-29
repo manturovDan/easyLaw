@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, make_response
 from src.auth.auth_processing import AuthProcessing
 from src import create_app
 from src import db
@@ -25,6 +25,13 @@ def signup_post():
     hash = AuthProcessing.encrypt_string(password)
     print(hash)
 
-    processing.auth_user(login, hash)
+    id, res = processing.auth_user(login, hash)
+    if id == 0:
+        pass #failed
+    else:
+        resp = make_response(render_template('setcookie.html'))
+        resp.set_cookie('session', res)
+        resp.set_cookie('user', str(id))
+        return resp
 
     return "lol"
