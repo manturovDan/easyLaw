@@ -1,4 +1,8 @@
 import hashlib
+import secrets
+import string
+from random import random
+
 from src.config import salt
 import datetime
 
@@ -25,7 +29,9 @@ class AuthProcessing:
                 self.create_session(row[0])
 
     def create_session(self, id):
-        query = "INSERT INTO sessions (user, time, hash) VALUES ('" + str(id) + "', '" + datetime.datetime.now().isoformat(' ') + "', '123');"
+        secret = ''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(256))
+        hash_val = self.encrypt_string(secret)
+        query = "INSERT INTO sessions (user, time, hash) VALUES ('" + str(id) + "', '" + datetime.datetime.now().isoformat(' ') + "', '" + hash_val + "');"
 
         with self.engine.connect() as con:
             rs = con.execute(query)
