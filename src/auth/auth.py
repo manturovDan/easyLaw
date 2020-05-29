@@ -1,7 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from src.auth.auth_processing import encrypt_string
+from src.auth.auth_processing import AuthProcessing
+from src import create_app
+from src import db
 
 auth = Blueprint('auth', __name__)
+
+with create_app().app_context():
+    processing = AuthProcessing(db.engine)
+
 
 @auth.route('/')
 def go():
@@ -14,7 +20,8 @@ def signup_post():
     password = request.form.get('password')
 
     print(login + " " + password)
-    print(encrypt_string(password))
+    print(AuthProcessing.encrypt_string(password))
+
 
 
     return "lol"
