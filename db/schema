@@ -1,0 +1,161 @@
+-- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
+--
+-- Host: 127.0.0.1    Database: law
+-- ------------------------------------------------------
+-- Server version	8.0.20-0ubuntu0.19.10.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `lawyers`
+--
+
+DROP TABLE IF EXISTS `lawyers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lawyers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user` int DEFAULT NULL,
+  `status` varchar(256) DEFAULT NULL,
+  `bio` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lawyers`
+--
+
+LOCK TABLES `lawyers` WRITE;
+/*!40000 ALTER TABLE `lawyers` DISABLE KEYS */;
+INSERT INTO `lawyers` VALUES (1,2,'Старший юрист','В 1999 окончил МГУ');
+/*!40000 ALTER TABLE `lawyers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lawyers_tickets`
+--
+
+DROP TABLE IF EXISTS `lawyers_tickets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lawyers_tickets` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ticket` int DEFAULT NULL,
+  `lawyer` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lawyers_tickets`
+--
+
+LOCK TABLES `lawyers_tickets` WRITE;
+/*!40000 ALTER TABLE `lawyers_tickets` DISABLE KEYS */;
+INSERT INTO `lawyers_tickets` VALUES (1,3,2);
+/*!40000 ALTER TABLE `lawyers_tickets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sessions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user` int NOT NULL,
+  `time` datetime DEFAULT NULL,
+  `hash` varchar(256) DEFAULT NULL,
+  `old` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sessions`
+--
+
+LOCK TABLES `sessions` WRITE;
+/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` VALUES (1,1,'2020-05-30 01:06:22','123',0),(2,1,'2020-05-30 01:11:05','6ab62409cbd24f137b2a898c3e3ac8b28d95b12087f3ea04d53f43465659e85b',0),(3,1,'2020-05-30 01:11:17','228e04e576cb60d4cf7aaac8e74ccebdd10cf039c64e4402f11ac482c4885e54',0),(4,1,'2020-05-30 01:20:57','ff87b4f7f39de870ec36583f69089289a2c6ab646973fe9b46a1217eba7bad83',0),(5,1,'2020-05-30 01:21:23','e54d1ca20de758a2accab426742253182c3092c68511276e6831ed5a0b6be981',0),(6,1,'2020-05-30 09:12:34','b050e3998557208f8b53b2d32c91c9f907afc32d19170f83022b8cd279a82d0d',0),(7,1,'2020-05-30 09:34:25','deaab27a785abdc6794d1c6d91713b1795a8e684e6111a8e2e8b61c243253160',1),(8,1,'2020-05-30 09:37:27','3e58a57940ab761566744f34cac08d4980cfbe108c160c3111124992a33bb14e',1),(9,1,'2020-05-30 10:02:37','1df718ecf232dbc8c0394c2e002148455ec384902162c3e535784f8f3d798f93',1),(10,1,'2020-05-30 10:13:06','e5b25413ed3bf31806fbcd374ea8dea7b0c03448dc171b4724b2ef8fbcdf643c',1),(11,1,'2020-05-30 10:13:51','f1b70440cb7fabf6b8c62a62b1776fac0c2db312838505762a6577a69e04a1f9',1),(12,2,'2020-05-30 10:33:30','96d0efed320343c6a33cebb08994ce08823c1d24e9c4ea99c412306e0ab07cb9',1),(13,1,'2020-05-30 10:55:20','4c330f8271e17f9c11f94413be571ba97889691ffacefc5f72d98c699deed03a',1),(14,1,'2020-05-30 11:27:47','c3a5c64af3f80a32be42d854a42d336440006ac88c850d0246b90f3461cd8a8f',0),(15,3,'2020-05-30 12:07:06','35fb22605aa8a922f4217071af883767c9cb8ecfd34dd7367b1c1a7c1d0dbc4e',1),(16,3,'2020-05-30 12:07:46','f6513bba75897a9f1202f2e925b12e18d1ab7d06fe1e91d9f5e5f4f3a5a79e71',0),(17,2,'2020-05-30 12:33:05','2299bf18a63908a8bf2bc70f4745c0408da56ebbb581ed92a172fa9a5042c4ee',1),(18,2,'2020-05-30 14:40:43','ce7b31a180285ebc66f365241ab82e4069492e5d181b7d7446d97c03ae99532e',0),(19,4,'2020-05-30 14:53:15','c93d39e7cbb84621f342a2d8841fd991a6c9cfa02baf59ba488dae42404eaf6f',0);
+/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ticket`
+--
+
+DROP TABLE IF EXISTS `ticket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ticket` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `client` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `meet_time` datetime DEFAULT NULL,
+  `name` varchar(256) DEFAULT NULL,
+  `cr_time` datetime DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ticket`
+--
+
+LOCK TABLES `ticket` WRITE;
+/*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+INSERT INTO `ticket` VALUES (1,1,8,NULL,'Обращение в Суд','2020-05-30 11:46:27','desc1'),(2,1,8,NULL,'Обращение в прокуротуру','2020-05-30 11:46:30','desc2'),(3,1,4,NULL,'Хочу засудить соседа','2020-05-30 11:52:51','Навсегда'),(4,1,7,NULL,'Продажа имущества','2020-05-30 12:21:14','Продаю дом\r\n');
+/*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL,
+  `account` varchar(256) DEFAULT NULL,
+  `type` int DEFAULT '0',
+  `hash` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Иванов Иван Иванович','iii',0,'9d99d18239f70dd3120041413154857fc7bc29883374df022554e156f629f3b1'),(2,'Александров Александр Александрович','aaa',1,'9d99d18239f70dd3120041413154857fc7bc29883374df022554e156f629f3b1'),(3,'Григорьев Григорий Григорьевич','ggg',0,'9d99d18239f70dd3120041413154857fc7bc29883374df022554e156f629f3b1'),(4,'Владимиров Владимир Владимирович','vvv',2,'9d99d18239f70dd3120041413154857fc7bc29883374df022554e156f629f3b1');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-05-30 15:06:35
