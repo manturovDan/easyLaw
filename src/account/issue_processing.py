@@ -5,6 +5,9 @@ def new_ticket(user, topic, desc, engine):
     query = "INSERT INTO ticket (client, status, name, cr_time, description) VALUES ('" + str(user) + "', 7, '" + topic + "', '" + datetime.datetime.now().isoformat() + "', '" + desc + "');"
     with engine.connect() as con:
         con.execute(query)
+        last = con.execute("SELECT LAST_INSERT_ID();")
+        for l in last:
+            return l[0]
 
 
 def is_my_issue(user, issue, engine):

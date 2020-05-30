@@ -46,9 +46,9 @@ def new_issue():
     topic = request.form.get('subject')
     desc = request.form.get('desc')
 
-    issue_processing.new_ticket(user, topic, desc, engine)
+    iss = issue_processing.new_ticket(user, topic, desc, engine)
 
-    return str(topic) + " " + str(desc)
+    return redirect(url_for('client.consultation', issue = iss))
 
 
 @client.route('/ticket_status/<issue>')
