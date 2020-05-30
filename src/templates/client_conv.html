@@ -74,7 +74,7 @@
                     {% endfor %}
                 </div>
                 <br>
-                {% if status == 7 %}
+                {% if status < 7 %}
                 <div class="col-sm-12">
                     <a class="btn btn-warning" href="/pay/{{ id }}" role="button">Оплтатить</a>
                 </div>

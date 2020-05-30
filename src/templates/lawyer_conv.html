@@ -1,35 +1,99 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href = "/">Главная</a><br>
+<div class="col-sm-12" style = "padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-1">
+            <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
+        </div>
+        <div class="col-sm-2 offset-sm-5">
+            <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+        </div>
+    </div>
+</div>
 
-Общение юриста с клиентами
+<div class="col-sm-10 offset-sm-1" style = "margin-top:30px;">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="col-sm-12">
+                <h3>{{ name }}</h3>
+            </div>
+            <br>
 
-Тут будет месенджер, а так же обновляться статус ображения в реальном времени. Нужно будет в шаблоне фласка сделать if-ами название каждого статуса проекта<br>
-<br>
-Если 8 выводить кнопку "взять проект"
-<br>
-Так же, если статут не 7 и не 8, то выводить юристов, работающих на проекте
-<br>
-Также выводится Имя клиияента
-<br>
-Затем возможно назнанчение встречи
-<br><br>
-Клиент: {{ client_name }}<br>
-Статус: {{ status }}<br>
-Все статусы в описании<br><br>
-Название: {{ name }}<br>
-Описание: {{ desc }}<br>
-Дата создания: {{ cr_date }}<br>
+            <div class="col-sm-12">
+                <b>Описание: </b>{{ desc }}
+            </div>
 
-<form action = "/lawyer/take/{{ id }}" method="post">
-    <input type="submit" value="Взять">
-</form>
+            <div class="col-sm-12">
+                <b>Клиент: </b>{{ client_name }}
+            </div>
 
-<br><br>
-Спиок юристов проекта:<br>
-{{ lawyers }}
-<br>
+            <div class="col-sm-12">
+                <b>Статус: </b>
+                {% if status == 1 %}
+                    Ожидает рассмотрения
+                {% endif %}
+
+                {% if status == 2 %}
+                    Назначена встреча
+                {% endif %}
+
+                {% if status == 3 %}
+                    Сообщение от юриста
+                {% endif %}
+
+                {% if status == 4 %}
+                    В работе
+                {% endif %}
+
+                {% if status == 5 %}
+                    Ожидание действий клиента
+                {% endif %}
+
+                {% if status == 6 %}
+                    Завершено
+                {% endif %}
+
+                {% if status == 7 %}
+                    Ожидание платежа за обращение
+                {% endif %}
+
+                {% if status == 8 %}
+                    Поиск юриста
+                {% endif %}
+            </div>
+
+            <div class="col-sm-12">
+                <b>Дата создания: </b>{{ cr_date }}
+            </div>
+            <hr>
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+                    {% if status != 8 %}
+                    <b>Юристы проекта:</b>
+                    {% endif %}
+
+                    {% for i in range(0, lawyers_count) %}
+                    <p>{{ lawyers[i]['lawyer_name'] }}</p><br>
+                    {% endfor %}
+                </div>
+                <br>
+                {% if status == 8 %}
+                <div class="col-sm-12">
+                    <form action = "/lawyer/take/{{ id }}" method="post">
+                        <button type="submit" class = "btn btn-primary">Взять обращение</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-sm-6 messenger">
+            Тут будут сообщения
+        </div>
+
+    </div>
+</div>
 
 
 {% endblock %}

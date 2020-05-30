@@ -24,7 +24,7 @@
 <div class = "col-sm-8 offset-sm-2 tickets">
     {% for i in range(0, tick_len) %}
     <div class = "ticket">
-        <b>Тема: </b><a href = "/client/consultation/{{ my_tickets[i]['id'] }}">{{ my_tickets[i]['name'] }}</a><br><br>
+        <b>Тема: </b><a href = "/lawyer/consultation/{{ my_tickets[i]['id'] }}">{{ my_tickets[i]['name'] }}</a><br><br>
         <b>Клиент: </b> {{ my_tickets[i]['client'] }}<br>
         <b>Статус обращения: </b>{{ my_tickets[i]['status'] }}
     </div>
