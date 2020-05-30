@@ -28,4 +28,5 @@ def create_app():
     from src.account.account import account
     app.register_blueprint(account, url_prefix='/')
 
+
     return app
