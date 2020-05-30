@@ -21,7 +21,7 @@ def can_i_part(my_id, issue, engine):
             if row[1] == 8:
                 return True
 
-    query_my_issue = "SELECT if FROM lawyers_tickets WHERE ticket=" + str(issue) + " AND lawyer=" + str(my_id) + ";"
+    query_my_issue = "SELECT id FROM lawyers_tickets WHERE ticket=" + str(issue) + " AND lawyer=" + str(my_id) + ";"
     with engine.connect() as con:
         rs = con.execute(query_my_issue)
 
@@ -32,7 +32,10 @@ def can_i_part(my_id, issue, engine):
 
 
 def take(my_id, issue, engine):
-    query = "INSERT INTO lawyers_tickets (ticket, lawyer) VALUES (" + issue + ", " + my_id + ");"
+    query = "START TRANSACTION;" \
+            "INSERT INTO lawyers_tickets (ticket, lawyer) VALUES (" + issue + ", " + my_id + ");" \
+            "UPDATE ticket SET status=4 WHERE id=" + str(issue) + ";" \
+            "COMMIT;"
     with engine.connect() as con:
         if not can_i_part(my_id, issue, engine):
             return False

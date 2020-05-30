@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, request, render_template
 from src import db, create_app
-from src.account import account_checker, lawyer_processing
+from src.account import account_checker, lawyer_processing, issue_processing
 
 lawyer = Blueprint('lawyer', __name__)
 
@@ -27,7 +27,8 @@ def panel():
 def consultation(issue):
     user = request.cookies.get('user')
     if lawyer_processing.can_i_part(user, issue, engine):
-        return render_template('lawyer_conv.html', id=issue)
+        issue_processing.get_full_info(issue, engine)
+        return render_template('lawyer_conv.html', id=issue, status = issue_processing.get_status(issue, engine))
     return redirect(url_for('account.center'))
 
 
@@ -41,6 +42,6 @@ def new():
 def take(issue):
     user = request.cookies.get('user')
     if lawyer_processing.take(user, issue, engine):
-        return redirect('lawyer.consultation', issue=issue)
+        return redirect(url_for('lawyer.consultation', issue=issue))
     else: #is taken
         return redirect(url_for('account.center')) #or err page

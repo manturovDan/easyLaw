@@ -31,6 +31,20 @@ def get_status(issue, engine):
         return 0
 
 
+def get_full_info(issue, engine):
+    queryT = "SELECT id, client, status, meet_time, name, cr_time, description FROM ticket WHERE id=" + str(issue) + ";"
+    queryL = "SELECT users.id, users.name FROM users INNER JOIN lawyers_tickets ON lawyers_tickets.ticket=" + str(issue) + " AND lawyers_tickets.lawyer = users.id;";
+    with engine.connect() as con:
+        rst = con.execute(queryT)
+        rsl = con.execute(queryL)
+
+        for rowt in rst:
+            print(rowt)
+
+        for rowl in rsl:
+            print(rowl)
+
+
 def pay(issue, engine):
     query = "UPDATE ticket SET status=8 WHERE id=" + str(issue) + ";"
 

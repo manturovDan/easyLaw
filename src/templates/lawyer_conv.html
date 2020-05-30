@@ -14,16 +14,19 @@
 Также выводится Имя клиияента
 <br>
 Затем возможно назнанчение встречи
-
+<br><br>
 Статус: {{ status }}<br>
 Все статусы в описании<br><br>
+Название: {{ name }}<br>
+Описание: {{ desc }}<br>
 
-<form action = "/lawyer/take/{{ id }}">
+<form action = "/lawyer/take/{{ id }}" method="post">
     <input type="submit" value="Взять">
 </form>
 
 <br><br>
-Спиок юристов проекта:
+Спиок юристов проекта:<br>
+{{ lawyers }}
 <br>
 
 
