@@ -63,3 +63,22 @@ def pay(issue, engine):
 
     with engine.connect() as con:
         rs = con.execute(query)
+
+
+def text_status(num):
+    if num == 1:
+        return "Ожидает рассмотрения"
+    elif num == 2:
+        return "Назначена встреча"
+    elif num == 3:
+        return "Сообщение от юриста"
+    elif num == 4:
+        return "В работе"
+    elif num == 5:
+        return "Ожидание Ваших действий"
+    elif num == 6:
+        return "Завершено"
+    elif num == 3:
+        return "Ожидание платежа"
+    else:
+        return "Поиск юриста"
