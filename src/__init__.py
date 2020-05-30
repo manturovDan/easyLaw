@@ -18,4 +18,13 @@ def create_app():
     from src.account.client import client
     app.register_blueprint(client, url_prefix='/client')
 
+    from src.account.lawer import lawyer
+    app.register_blueprint(lawyer, url_prefix='/lawyer')
+
+    from src.account.control import control
+    app.register_blueprint(control, url_prefix='/control')
+
+    from src.account.account import account
+    app.register_blueprint(account, url_prefix='/')
+
     return app

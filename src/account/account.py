@@ -1,13 +1,17 @@
-from flask import Blueprint
+from flask import Blueprint, redirect, url_for, request
+from src import create_app
+from src import db
+from src.account import account_checker
 
 account = Blueprint('account', __name__)
 
+with create_app().app_context():
+    engine = db.engine
 
-@account.route('/client_panel')
+
+@account.route('/')
 def client_panel():
-    return "panel"
-
-
-@account.route('/consultation/<issue>')
-def consultation(issue):
-    return "consultation control " + str(issue)
+    if account_checker.check_session(engine) == False:
+        return redirect(url_for('auth.signout'))
+    user = request.cookies.get('user')
+    return str(account_checker.my_type(user, engine))

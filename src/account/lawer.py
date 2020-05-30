@@ -14,10 +14,10 @@ def consultation(issue):
 
 
 @lawyer.route('/new')
-def consultation(issue):
+def new(issue):
     return "new issues"
 
 
 @lawyer.route('/issue/<ticket>')
-def consultation(ticket):
+def bid(ticket):
     return "ticket " + str(ticket)
