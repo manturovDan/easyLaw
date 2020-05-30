@@ -56,6 +56,14 @@ def new_issue():
 def get_status(issue):
     return issue_processing.get_status(issue, engine)
 
+
 @client.route('/chat')
 def chat():
     return render_template('chat.html')
+
+
+@client.route('/ms_cnt/<issue>', methods=['GET'])
+def ms_cnt(issue):
+    ret = len(issue_processing.get_dialogue(issue, engine))
+    print(ret)
+    return str(ret)
