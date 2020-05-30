@@ -1,11 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href = "/auth/exit">Выход</a><br>
-{{ lawyer_name }} ({{ lawyer_status }})<br>
-<a href = "/lawyer/new">Новые обращения</a><br>
-<h3>Мои обращения</h3>
-{% for i in range(0, tick_len) %}
-{{ my_tickets[i] }}} - <a href = "/lawyer/consultation/{{ my_tickets[i]['id'] }}">{{ my_tickets[i]['name'] }}</a><br>
-{% endfor %}
+<br>
+<div class="col-sm-12" style = "padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-2 offset-sm-2">
+            <a class="btn btn-outline-info" href="/lawyer/new" role="button">Новые обращения</a>
+        </div>
+        <div class="col-sm-5" style = "text-align: right">
+            <h4>{{ lawyer_name }} <i>({{ lawyer_status }})</i></h4>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="col-sm-12" style = "text-align: center; margin-top: 70px;">
+    <h3>Мои обращения</h3><br>
+</div>
+
+<div class = "col-sm-8 offset-sm-2 tickets">
+    {% for i in range(0, tick_len) %}
+    <div class = "ticket">
+        <b>Тема: </b><a href = "/client/consultation/{{ my_tickets[i]['id'] }}">{{ my_tickets[i]['name'] }}</a><br><br>
+        <b>Клиент: </b> {{ my_tickets[i]['client'] }}<br>
+        <b>Статус обращения: </b>{{ my_tickets[i]['status'] }}
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

@@ -1,3 +1,5 @@
+from src.account import issue_processing
+
 def get_free(engine):
     query = "SELECT id, status, name, meet_time FROM ticket WHERE status = 8"
 
@@ -55,7 +57,7 @@ def get_tickets(my_id, engine):
         rs = con.execute(query)
 
         for row in rs:
-            issues.append({'id': row[0], 'status': row[1], 'client_id': row[2], 'client': row[3], 'name': row[4], 'meet_time': row[5]})
+            issues.append({'id': row[0], 'status': issue_processing.text_status(row[1]), 'client_id': row[2], 'client': row[3], 'name': row[4], 'meet_time': row[5]})
 
     print(issues)
     return issues
