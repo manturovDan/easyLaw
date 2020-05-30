@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, url_for, request
+from flask import Blueprint, redirect, url_for, request, render_template
 from src import db, create_app
-from src.account import account_checker
+from src.account import account_checker, lawyer_processing
 
 lawyer = Blueprint('lawyer', __name__)
 
@@ -25,12 +25,13 @@ def panel():
 
 @lawyer.route('/consultation/<issue>')
 def consultation(issue):
-    return "consultation lawyer " + str(issue)
+    return render_template('lawyer_conv', id=issue)
 
 
 @lawyer.route('/new')
-def new(issue):
-    return "new issues"
+def new():
+    tickets = lawyer_processing.get_free(engine)
+    return render_template('lawyer_new_tickets.html', count=len(tickets), tickets=tickets)
 
 
 @lawyer.route('/issue/<ticket>')

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href = "/">Главная</a><br>
+{% for i in range(0, count) %}
+{{ tickets[i] }}} - <a href = "/lawyer/consultation/{{ tickets[i]['id'] }}">{{ tickets[i]['name'] }}</a><br>
+{% endfor %}
+{% endblock %}
