@@ -12,7 +12,7 @@ with create_app().app_context():
 
 
 @auth.route('/')
-def go():
+def login():
     return render_template('login.html')
 
 
@@ -27,11 +27,14 @@ def signup_post():
 
     id, res = processing.auth_user(login, hash)
     if id == 0:
-        pass #failed
+        return redirect(url_for('auth.login'))
     else:
         resp = make_response(render_template('setcookie.html'))
         resp.set_cookie('session', res)
         resp.set_cookie('user', str(id))
         return resp
 
-    return "lol"
+
+@auth.route('/exit')
+def signout():
+    pass
