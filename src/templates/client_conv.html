@@ -106,8 +106,8 @@
                 </ul>
             </div>
             <div class="mes_form">
-                <input class="form-control" type="text" name="message" placeholder="Ваше сообщение" style="line-height: 45px;width: 60%; float: left;">
-                <button class="btn btn-primary mb-2" type = "submit" style = "margin: 0px 15px;">Отправить</button>
+                <input class="form-control" type="text" id = "mess" name="message" placeholder="Ваше сообщение" style="line-height: 45px;width: 60%; float: left;">
+                <button class="btn btn-primary mb-2" id = "send" type = "submit" style = "margin: 0px 15px;">Отправить</button>
                 <a href="https://www.filedropper.com/" target = "_blank" class="btn btn-primary" style = "margin-top: -8px;" role="button">Файл</a>
             </div>
         </div>
@@ -119,8 +119,9 @@
 <script>
     $(".box").scrollTop($('.box')[0].scrollHeight);
     var cnt = '{{ messages }}';
-    alert(cnt)
-    setInterval(function(){
+    //alert(cnt)
+
+    function checkMsg(){
         $.ajax({ url: "/client/ms_cnt/{{id}}", success: function(data){
             if(data != cnt) {
                 alert('new message')
@@ -128,7 +129,17 @@
                 console.log(data)
             }
         }, dataType: "json"});
-    }, 3000);
+    }
+
+    setInterval(checkMsg, 3000);
+
+    $("#send").click(function () {
+        var message = $("#mess").val();
+
+        $.ajax({ url : "/client/send/{{ id }}/" + message, success: function(data) {
+            checkMsg();
+        },dataType: "json" });
+    })
 </script>
 });
 

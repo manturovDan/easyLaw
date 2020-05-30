@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, request, render_template
 from src import db, create_app
-from src.account import account_checker, client_processing, issue_processing
+from src.account import account_checker, client_processing, issue_processing, mesages_processing
 
 client = Blueprint('client', __name__)
 
@@ -67,3 +67,9 @@ def ms_cnt(issue):
     ret = len(issue_processing.get_dialogue(issue, engine))
     print(ret)
     return str(ret)
+
+
+@client.route('/send/<issue>/<message>', methods=['GET'])
+def send_msg(issue, message):
+    author = request.cookies.get('user')
+    mesages_processing.send(issue, author, message, engine)
