@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, make_r
 from src.auth.auth_processing import AuthProcessing
 from src import create_app
 from src import db
+import src.account.account_checker
 
 auth = Blueprint('auth', __name__)
 
@@ -13,11 +14,15 @@ with create_app().app_context():
 
 @auth.route('/')
 def login():
+    if src.account.account_checker.check_session(processing.engine):
+        return redirect(url_for('auth.signout'))
     return render_template('login.html')
 
 
 @auth.route('/signin', methods=['POST'])
 def signup_post():
+    if src.account.account_checker.check_session(processing.engine):
+        return redirect(url_for('auth.signout'))
     login = request.form.get('login')
     password = request.form.get('password')
 
@@ -41,7 +46,7 @@ def signout():
     session = request.cookies.get('session')
     processing.out(user, session)
 
-    resp = make_response(render_template('setcookie.html'))
+    resp = make_response(render_template('exit.html'))
     resp.delete_cookie('session')
     resp.delete_cookie('user')
     return resp

@@ -11,7 +11,7 @@ with create_app().app_context():
 
 @account.route('/')
 def client_panel():
-    if account_checker.check_session(engine) == False:
+    if not account_checker.check_session(engine):
         return redirect(url_for('auth.signout'))
     user = request.cookies.get('user')
     return str(account_checker.my_type(user, engine))
