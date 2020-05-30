@@ -65,7 +65,10 @@
             <hr>
             <div class="col-sm-12">
                 <div class="col-sm-12">
+                    {% if status != 7 %}
                     <b>Юристы проекта:</b>
+                    {% endif %}
+
                     {% for i in range(0, lawyers_count) %}
                     <p>{{ lawyers[i]['lawyer_name'] }}</p><br>
                     {% endfor %}

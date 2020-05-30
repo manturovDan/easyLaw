@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href = "/">Главная</a><br>
+<div class="col-sm-12" style = "padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-1">
+            <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
+        </div>
+    </div>
+</div>
 
-<form method="post" action="/pay/{{ id }}">
-    <input type="submit" value="Оплатить">
-</form>
+<div class="col-sm-4 offset-sm-4" style = "text-align: center;">
+    <h2>Эмуляция оплаты</h2>
+    <form method="post" action="/pay/{{ id }}">
+        <img src="https://bankstoday.net/wp-content/uploads/2018/02/logoVisa_Mast_Mir.png" alt="" width="250px">
+        <input placeholder="Промокод"><br><br>
+        <input type="submit" value="Оплатить">
+    </form>
+</div>
+
 
 {% endblock %}
