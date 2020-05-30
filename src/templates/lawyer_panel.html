@@ -25,7 +25,39 @@
     {% for i in range(0, tick_len) %}
     <div class = "ticket">
         <b>Тема: </b><a href = "/lawyer/consultation/{{ my_tickets[i]['id'] }}">{{ my_tickets[i]['name'] }}</a><br><br>
-        <b>Клиент: </b> {{ my_tickets[i]['client'] }}<br>
+        <b>Клиент: </b>
+                {% if my_tickets[i]['client'] == 1 %}
+                    Ожидает рассмотрения
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 2 %}
+                    Назначена встреча
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 3 %}
+                    Сообщение от юриста
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 4 %}
+                    В работе
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 5 %}
+                    Ожидание действий клиента
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 6 %}
+                    Завершено
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 7 %}
+                    Ожидание платежа за обращение
+                {% endif %}
+
+                {% if my_tickets[i]['client'] == 8 %}
+                    Поиск юриста
+                {% endif %}
+                <br>
         <b>Статус обращения: </b>{{ my_tickets[i]['status'] }}
     </div>
     {% endfor %}

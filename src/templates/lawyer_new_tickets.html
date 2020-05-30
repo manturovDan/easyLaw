@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href = "/">Главная</a><br>
-{% for i in range(0, count) %}
-{{ tickets[i] }}} - <a href = "/lawyer/consultation/{{ tickets[i]['id'] }}">{{ tickets[i]['name'] }}</a><br>
-{% endfor %}
+<div class="col-sm-12" style = "padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-1">
+            <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
+        </div>
+        <div class="col-sm-2 offset-sm-5">
+            <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+        </div>
+    </div>
+</div>
+
+<div class = "col-sm-8 offset-sm-2 tickets">
+    {% for i in range(0, count) %}
+    <div class = "ticket">
+        <b>Тема: </b><a href = "/lawyer/consultation/{{ tickets[i]['id'] }}">{{ tickets[i]['name'] }}</a><br><br>
+        <b>Статус обращения: </b>Поиск юриста
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
