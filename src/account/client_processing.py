@@ -3,7 +3,7 @@ from src.account import issue_processing
 
 
 def get_tickets(user, engine):
-    query = "SELECT id, status, name, meet_time FROM ticket WHERE client='" + user + "'"
+    query = "SELECT id, status, name, meet_time FROM ticket WHERE client='" + user + "' ORDER BY id DESC"
 
     issues = []
     with engine.connect() as con:

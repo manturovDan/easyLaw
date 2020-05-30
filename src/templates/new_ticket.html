@@ -1,13 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href = "/">Главная</a><br>
-Новое обращение
+<div class="col-sm-12" style = "padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-1">
+            <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
+        </div>
+        <div class="col-sm-2 offset-sm-5">
+            <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+        </div>
+    </div>
+</div>
 
-<form method="post" action="/client/new_issue">
-    <input type = "text" name = "subject" placeholder="Тема" required>
-    <textarea name = "desc" placeholder="Обращение"></textarea>
-    <input type = "submit" name = "submit" value="Отправить">
-</form>
+<div class="col-sm-6 offset-sm-3">
+    <form method="post" action="/client/new_issue">
+        <div class="form-group">
+            <input type = "text" class="form-control" name = "subject" placeholder="Тема" required>
+            <br>
+            <textarea class = "form-control" name = "desc" placeholder="Обращение" required style="height:500px;"></textarea>
+            <br>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </div>
+    </form>
+</div>
 
 {% endblock %}

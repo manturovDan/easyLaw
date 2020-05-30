@@ -78,7 +78,7 @@ def text_status(num):
         return "Ожидание Ваших действий"
     elif num == 6:
         return "Завершено"
-    elif num == 3:
+    elif num == 7:
         return "Ожидание платежа"
     else:
         return "Поиск юриста"
