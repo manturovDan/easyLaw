@@ -85,3 +85,16 @@ def text_status(num):
         return "Ожидание платежа"
     else:
         return "Поиск юриста"
+
+
+def get_dialogue(issue, engine):
+    query = "SELECT messages.id, messages.author, messages.text, messages.time, users.status FROM messages INNER JOIN users ON users.id=messages.author WHERE messages.ticket=" + str(issue) + ";"
+
+    with engine.connect() as con:
+        rs = con.execute(query)
+
+        dialogue = []
+        for row in rs:
+            dialogue.append({'id' : row[0], 'author': row[1], 'text' : row[2], 'time': row[3], 'is_admin': row[4]})
+
+        return dialogue
