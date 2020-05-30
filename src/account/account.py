@@ -10,8 +10,14 @@ with create_app().app_context():
 
 
 @account.route('/')
-def client_panel():
+def center():
     if not account_checker.check_session(engine):
         return redirect(url_for('auth.signout'))
     user = request.cookies.get('user')
-    return str(account_checker.my_type(user, engine))
+    acc = account_checker.my_type(user, engine)
+    if acc == 2:
+        return redirect(url_for('control.panel'))
+    elif acc == 1:
+        return redirect(url_for('lawyer.panel'))
+    else:
+        return redirect(url_for('client.panel'))
