@@ -21,6 +21,10 @@ def can_i_part(my_id, issue, engine):
             if row[1] == 8:
                 return True
 
+    return is_mine(my_id, issue, engine)
+
+
+def is_mine(my_id, issue, engine):
     query_my_issue = "SELECT id FROM lawyers_tickets WHERE ticket=" + str(issue) + " AND lawyer=" + str(my_id) + ";"
     with engine.connect() as con:
         rs = con.execute(query_my_issue)
@@ -37,7 +41,7 @@ def take(my_id, issue, engine):
             "UPDATE ticket SET status=4 WHERE id=" + str(issue) + ";" \
             "COMMIT;"
     with engine.connect() as con:
-        if not can_i_part(my_id, issue, engine):
+        if not can_i_part(my_id, issue, engine) or is_mine(my_id, issue, engine):
             return False
         con.execute(query)
 
