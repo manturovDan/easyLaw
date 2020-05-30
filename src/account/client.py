@@ -27,7 +27,10 @@ def panel():
 
 @client.route('/consultation/<issue>')
 def consultation(issue):
-    return "consultation " + str(issue)
+    user = request.cookies.get('user')
+    if not issue_processing.is_my_issue(user, issue, engine):
+        return redirect(url_for('account.center'))
+    return render_template('client_conv.html')
 
 
 @client.route('/new')
