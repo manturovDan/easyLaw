@@ -30,7 +30,9 @@ def consultation(issue):
     user = request.cookies.get('user')
     if not issue_processing.is_my_issue(user, issue, engine):
         return redirect(url_for('account.center'))
-    return render_template('client_conv.html', id = issue, status = issue_processing.get_status(issue, engine))
+    iss, lawyers = issue_processing.get_full_info(issue, engine)
+    return render_template('client_conv.html', id=issue, status=iss['status'], name=iss['name'], desc=iss['desc'],
+                           cr_date=iss['cr_time'], lawyers=lawyers)
 
 
 @client.route('/new')
