@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href = "/auth/exit">Выход</a><br>
+{{ client_name }} ({{ lawyer_status }})<br>
+<a href = "/lawyer/new">Новые обращения</a><br>
+<h3>Мои обращения</h3>
+{% for i in range(0, tick_len) %}
+{{ my_tickets[i] }}} - <a href = "/lawyer/consultation/{{ my_tickets[i]['id'] }}">{{ my_tickets[i]['name'] }}</a><br>
+{% endfor %}
+{% endblock %}

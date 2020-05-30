@@ -20,7 +20,11 @@ def check_client_session():
 
 @lawyer.route('/panel')
 def panel():
-    return "lawyer panel"
+    user = request.cookies.get('user')
+    tickets = lawyer_processing.get_tickets(user, engine)
+    return render_template('lawyer_panel.html', lawyer_name=account_checker.get_login(user, engine),
+                           lawyer_status=lawyer_processing.get_lawyer_status(user, engine),
+                           tick_len=len(tickets), my_tickets=tickets)
 
 
 @lawyer.route('/consultation/<issue>')
