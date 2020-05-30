@@ -6,3 +6,8 @@
     padding: 18px;
     margin-bottom: 30px;
 }
+
+.messenger {
+    height: 500px;
+    background: red;
+}
