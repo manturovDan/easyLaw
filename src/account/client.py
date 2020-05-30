@@ -30,7 +30,7 @@ def consultation(issue):
     user = request.cookies.get('user')
     if not issue_processing.is_my_issue(user, issue, engine):
         return redirect(url_for('account.center'))
-    return render_template('client_conv.html')
+    return render_template('client_conv.html', id = issue, status = issue_processing.get_status(issue, engine))
 
 
 @client.route('/new')
@@ -47,3 +47,8 @@ def new_issue():
     issue_processing.new_ticket(user, topic, desc, engine)
 
     return str(topic) + " " + str(desc)
+
+
+@client.route('/ticket_status/<issue>')
+def get_status(issue):
+    return issue_processing.get_status(issue, engine)

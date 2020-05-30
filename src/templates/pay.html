@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href = "/">Главная</a><br>
+
+<form method="post" action="/pay/{{ id }}">
+    <input type="submit" value="Оплатить">
+</form>
+
+{% endblock %}

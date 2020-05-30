@@ -17,3 +17,22 @@ def is_my_issue(user, issue, engine):
             return True
 
         return False
+
+
+def get_status(issue, engine):
+    query = "SELECT status FROM ticket WHERE id=" + str(issue) + ";"
+
+    with engine.connect() as con:
+        rs = con.execute(query)
+
+        for row in rs:
+            return row[0]
+
+        return 0
+
+
+def pay(issue, engine):
+    query = "UPDATE ticket SET status=8 WHERE id=" + str(issue) + ";"
+
+    with engine.connect() as con:
+        rs = con.execute(query)

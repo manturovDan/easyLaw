@@ -1,7 +1,7 @@
-from flask import Blueprint, redirect, url_for, request
+from flask import Blueprint, redirect, url_for, request, render_template
 from src import create_app
 from src import db
-from src.account import account_checker
+from src.account import account_checker, issue_processing
 
 account = Blueprint('account', __name__)
 
@@ -21,3 +21,14 @@ def center():
         return redirect(url_for('lawyer.panel'))
     else:
         return redirect(url_for('client.panel'))
+
+
+@account.route('/pay/<issue>')
+def pay(issue):
+    return render_template('pay.html', id = issue)
+
+
+@account.route('/pay/<issue>', methods = ['POST'])
+def pay_post(issue):
+    issue_processing.pay(issue, engine)
+    return redirect(url_for('account.center'))
