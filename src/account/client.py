@@ -31,9 +31,9 @@ def consultation(issue):
     if not issue_processing.is_my_issue(user, issue, engine):
         return redirect(url_for('account.center'))
     iss, lawyers = issue_processing.get_full_info(issue, engine)
-    dialogues = issue.get_dialogue(issue, engine)
+    dialogues = issue_processing.get_dialogue(issue, engine)
     return render_template('client_conv.html', id=issue, status=iss['status'], name=iss['name'], desc=iss['desc'],
-                           cr_date=iss['cr_time'], client_name=iss['client_name'], lawyers=lawyers, lawyers_count=len(lawyers), dialogues=dialogues)
+                           cr_date=iss['cr_time'], client_name=iss['client_name'], lawyers=lawyers, lawyers_count=len(lawyers), dialogues=dialogues, client=1, messages = len(dialogues))
 
 
 @client.route('/new')

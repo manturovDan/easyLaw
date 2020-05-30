@@ -88,7 +88,7 @@ def text_status(num):
 
 
 def get_dialogue(issue, engine):
-    query = "SELECT messages.id, messages.author, messages.text, messages.time, users.status FROM messages INNER JOIN users ON users.id=messages.author WHERE messages.ticket=" + str(issue) + ";"
+    query = "SELECT messages.id, messages.author, messages.text, messages.time, users.type FROM messages INNER JOIN users ON users.id=messages.author WHERE messages.ticket=" + str(issue) + ";"
 
     with engine.connect() as con:
         rs = con.execute(query)

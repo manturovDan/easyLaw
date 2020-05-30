@@ -1,101 +1,229 @@
 {% extends "base.html" %}
 
 {% block content %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-<div class="col-sm-12" style = "padding-top:50px;">
-    <div class="row">
-        <div class="col-sm-4 offset-sm-1">
-            <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
-        </div>
-        <div class="col-sm-2 offset-sm-5">
-            <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<!DOCTYPE html>
+<html class=''>
+<head>
+    <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+    <meta charset='UTF-8'>
+    <meta name="robots" content="noindex">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico"/>
+    <link rel="mask-icon" type=""
+          href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg"
+          color="#111"/>
+    <link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+"/>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet'
+          type='text/css'>
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+    <script src="https://use.typekit.net/hoy3lrg.js"></script>
+    <script>try {
+        Typekit.load({async: true});
+    } catch (e) {
+    }</script>
+
+
+    <div class="col-sm-12" style="padding-top:50px;">
+        <div class="row">
+            <div class="col-sm-4 offset-sm-1">
+                <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
+            </div>
+            <div class="col-sm-2 offset-sm-5">
+                <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="col-sm-10 offset-sm-1" style = "margin-top:30px;">
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="col-sm-12">
-                <h3>{{ name }}</h3>
-            </div>
-            <br>
-
-            <div class="col-sm-12">
-                <b>Описание: </b>{{ desc }}
-            </div>
-
-            <div class="col-sm-12">
-                <b>Статус: </b>
-                {% if status == 1 %}
-                    Ожидает рассмотрения
-                {% endif %}
-
-                {% if status == 2 %}
-                    Назначена встреча
-                {% endif %}
-
-                {% if status == 3 %}
-                    Сообщение от юриста
-                {% endif %}
-
-                {% if status == 4 %}
-                    В работе
-                {% endif %}
-
-                {% if status == 5 %}
-                    Ожидание Ваших действий
-                {% endif %}
-
-                {% if status == 6 %}
-                    Завершено
-                {% endif %}
-
-                {% if status == 7 %}
-                    Ожидание платежа за обращение
-                {% endif %}
-
-                {% if status == 8 %}
-                    Поиск юриста
-                {% endif %}
-            </div>
-
-            <div class="col-sm-12">
-                <b>Дата создания: </b>{{ cr_date }}
-            </div>
-            <hr>
-            <div class="col-sm-12">
+    <div class="col-sm-10 offset-sm-1" style="margin-top:30px;">
+        <div class="row">
+            <div class="col-sm-4">
                 <div class="col-sm-12">
-                    {% if status != 7 %}
-                    <b>Юристы проекта:</b>
-                    {% endif %}
-
-                    {% for i in range(0, lawyers_count) %}
-                    <p>{{ lawyers[i]['lawyer_name'] }}</p><br>
-                    {% endfor %}
+                    <h3>{{ name }}</h3>
                 </div>
                 <br>
-                {% if status == 7 %}
+
                 <div class="col-sm-12">
-                    <a class="btn btn-warning" href="/pay/{{ id }}" role="button">Оплатить</a>
+                    <b>Описание: </b>{{ desc }}
                 </div>
-                {% endif %}
+
+                <div class="col-sm-12">
+                    <b>Статус: </b>
+                    {% if status == 1 %}
+                    Ожидает рассмотрения
+                    {% endif %}
+
+                    {% if status == 2 %}
+                    Назначена встреча
+                    {% endif %}
+
+                    {% if status == 3 %}
+                    Сообщение от юриста
+                    {% endif %}
+
+                    {% if status == 4 %}
+                    В работе
+                    {% endif %}
+
+                    {% if status == 5 %}
+                    Ожидание Ваших действий
+                    {% endif %}
+
+                    {% if status == 6 %}
+                    Завершено
+                    {% endif %}
+
+                    {% if status == 7 %}
+                    Ожидание платежа за обращение
+                    {% endif %}
+
+                    {% if status == 8 %}
+                    Поиск юриста
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-12">
+                    <b>Дата создания: </b>{{ cr_date }}
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        {% if status != 7 %}
+                        <b>Юристы проекта:</b>
+                        {% endif %}
+
+                        {% for i in range(0, lawyers_count) %}
+                        <p>{{ lawyers[i]['lawyer_name'] }}</p><br>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    {% if status == 7 %}
+                    <div class="col-sm-12">
+                        <a class="btn btn-warning" href="/pay/{{ id }}" role="button">Оплатить</a>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
+
+            <div class="col-sm-8 messenger">
+                <div id="frame">
+                    <div class="content" style="width:100%;">
+                        <div class="contact-profile">
+                            <p style="margin-left: 50px;">Форма общения</p>
+                            <div class="social-media">
+                                <!--<i class="fa fa-facebook" aria-hidden="true"></i>
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                                 <i class="fa fa-instagram" aria-hidden="true"></i>-->
+                            </div>
+                        </div>
+                        <div class="messages" style="width: 100%;">
+                            <ul>
+                                {% for i in range(0, messages) %}
+                                {% if dialogues[i]['is_admin'] == 0 and client == 1 %}
+                                <li class="sent">
+                                    <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-39/16/07_question-help-ask-512.png"
+                                         alt=""/>
+                                    <p>{{ dialogues[i]['text'] }}</p>
+                                </li>
+                                {% endif %}
+
+                                {% if dialogues[i]['is_admin'] == 1 and client == 1 %}
+                                <li class="replies">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/security-law/500/law_iconsArtboard_1_copy_7-512.png"
+                                         alt=""/>
+                                    <p>{{ dialogues[i]['text'] }}</p>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="message-input">
+                            <div class="wrap">
+                                <input type="text" placeholder="Ваше сообщение..."/>
+                                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                                <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
-
-        <div class="col-sm-8 messenger">
-            <iframe src = "/client/chat" width="100%" height = "100%" style="border: 0px;">
-            </iframe>
-        </div>
-
-        {{dialogues}}}
-
     </div>
-</div>
 
-{% endblock %}
+    <script>
+        $(".messages").animate({scrollTop: $(document).height()}, "fast");
+
+        $("#profile-img").click(function () {
+            $("#status-options").toggleClass("active");
+        });
+
+        $(".expand-button").click(function () {
+            $("#profile").toggleClass("expanded");
+            $("#contacts").toggleClass("expanded");
+        });
+
+        $("#status-options ul li").click(function () {
+            $("#profile-img").removeClass();
+            $("#status-online").removeClass("active");
+            $("#status-away").removeClass("active");
+            $("#status-busy").removeClass("active");
+            $("#status-offline").removeClass("active");
+            $(this).addClass("active");
+
+            if ($("#status-online").hasClass("active")) {
+                $("#profile-img").addClass("online");
+            } else if ($("#status-away").hasClass("active")) {
+                $("#profile-img").addClass("away");
+            } else if ($("#status-busy").hasClass("active")) {
+                $("#profile-img").addClass("busy");
+            } else if ($("#status-offline").hasClass("active")) {
+                $("#profile-img").addClass("offline");
+            } else {
+                $("#profile-img").removeClass();
+            }
+            ;
+
+            $("#status-options").removeClass("active");
+        });
+
+        function newMessage() {
+            message = $(".message-input input").val();
+            if ($.trim(message) == '') {
+                return false;
+            }
+            $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $('.contact.active .preview').html('<span>You: </span>' + message);
+            $(".messages").animate({scrollTop: $(document).height()}, "fast");
+        };
+
+        $('.submit').click(function () {
+            newMessage();
+        });
+
+        $(window).on('keydown', function (e) {
+            if (e.which == 13) {
+                newMessage();
+                return false;
+            }
+        });
+        //# sourceURL=pen.js
+    </script>
+
+    {% endblock %}
