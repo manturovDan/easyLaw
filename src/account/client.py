@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, redirect, url_for, request, render_template
 from src import db, create_app
 from src.account import account_checker, client_processing, issue_processing, mesages_processing
@@ -65,7 +67,6 @@ def chat():
 @client.route('/ms_cnt/<issue>', methods=['GET'])
 def ms_cnt(issue):
     ret = len(issue_processing.get_dialogue(issue, engine))
-    print(ret)
     return str(ret)
 
 
@@ -73,3 +74,13 @@ def ms_cnt(issue):
 def send_msg(issue, message):
     author = request.cookies.get('user')
     mesages_processing.send(issue, author, message, engine)
+    return ""
+
+
+@client.route('/last/<issue>/<count>')
+def last_msg(issue, count):
+    ret = issue_processing.get_dialogue(issue, engine, count)
+    print(ret)
+    for r in range(0, len(ret)):
+        ret[r]['time'] = 0
+    return json.dumps(ret)

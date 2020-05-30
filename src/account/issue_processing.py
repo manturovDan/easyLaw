@@ -87,8 +87,13 @@ def text_status(num):
         return "Поиск юриста"
 
 
-def get_dialogue(issue, engine):
-    query = "SELECT messages.id, messages.author, messages.text, messages.time, users.type FROM messages INNER JOIN users ON users.id=messages.author WHERE messages.ticket=" + str(issue) + ";"
+def get_dialogue(issue, engine, limit = None):
+    if limit == None:
+        lim = ""
+    else:
+        lim = " ORDER BY messages.id DESC LIMIT " + str(limit)
+
+    query = "SELECT messages.id, messages.author, messages.text, messages.time, users.type FROM messages INNER JOIN users ON users.id=messages.author WHERE messages.ticket=" + str(issue) + lim + ";"
 
     with engine.connect() as con:
         rs = con.execute(query)

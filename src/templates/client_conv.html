@@ -124,9 +124,13 @@
     function checkMsg(){
         $.ajax({ url: "/client/ms_cnt/{{id}}", success: function(data){
             if(data != cnt) {
-                alert('new message')
+                var to_get = data-cnt;
+                console.log(to_get)
                 cnt = data;
-                console.log(data)
+
+                $.ajax({ url: "/client/last/{{id}}/" + to_get, success: function(data){
+                    console.log(data)
+                }, dataType: "json"});
             }
         }, dataType: "json"});
     }
@@ -141,6 +145,5 @@
         },dataType: "json" });
     })
 </script>
-});
 
 {% endblock %}
