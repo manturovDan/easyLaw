@@ -25,7 +25,10 @@ def panel():
 
 @lawyer.route('/consultation/<issue>')
 def consultation(issue):
-    return render_template('lawyer_conv', id=issue)
+    user = request.cookies.get('user')
+    if lawyer_processing.can_i_part(user, issue, engine):
+        return render_template('lawyer_conv.html', id=issue)
+    return redirect(url_for('account.center'))
 
 
 @lawyer.route('/new')
@@ -34,6 +37,10 @@ def new():
     return render_template('lawyer_new_tickets.html', count=len(tickets), tickets=tickets)
 
 
-@lawyer.route('/issue/<ticket>')
-def bid(ticket):
-    return "ticket " + str(ticket)
+@lawyer.route('/take/<issue>', methods=['POST'])
+def take(issue):
+    user = request.cookies.get('user')
+    if lawyer_processing.take(user, issue, engine):
+        return redirect('lawyer.consultation', issue=issue)
+    else: #is taken
+        return redirect(url_for('account.center')) #or err page
