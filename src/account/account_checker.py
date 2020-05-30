@@ -29,8 +29,21 @@ def my_type(id, engine):
 
         return 0
 
+
 def get_login(id, engine):
     query = "SELECT account FROM users WHERE id='" + id + "'"
+
+    with engine.connect() as con:
+        rs = con.execute(query)
+
+        for row in rs:
+            return row[0]
+
+        return "###"
+
+
+def get_name(id, engine):
+    query = "SELECT name FROM users WHERE id='" + id + "'"
 
     with engine.connect() as con:
         rs = con.execute(query)

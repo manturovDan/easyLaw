@@ -2,7 +2,7 @@
 
 {% block content %}
 <a href = "/auth/exit">Выход</a><br>
-{{ client_name }} ({{ lawyer_status }})<br>
+{{ lawyer_name }} ({{ lawyer_status }})<br>
 <a href = "/lawyer/new">Новые обращения</a><br>
 <h3>Мои обращения</h3>
 {% for i in range(0, tick_len) %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href = "/auth/exit">Выход</a><br>
+{{ inspector_name }}<br>
+<h3>Все обращения</h3>
+{% for i in range(0, tick_len) %}
+{{ tickets[i] }}} - <a href = "/control/consultation/{{ tickets[i]['id'] }}">{{ tickets[i]['name'] }}</a><br>
+{% endfor %}
+{% endblock %}

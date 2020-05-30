@@ -22,7 +22,7 @@ def check_client_session():
 def panel():
     user = request.cookies.get('user')
     tickets = client_processing.get_tickets(user, engine)
-    return render_template('client_panel.html', client_name = account_checker.get_login(user, engine), tick_len = len(tickets), my_tickets = tickets)
+    return render_template('client_panel.html', client_name = account_checker.get_name(user, engine), tick_len = len(tickets), my_tickets = tickets)
 
 
 @client.route('/consultation/<issue>')
