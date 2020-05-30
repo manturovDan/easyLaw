@@ -1,7 +1,6 @@
 from flask import Blueprint, redirect, url_for, request, render_template
 from src import db, create_app
-from src.account import account_checker, client_processing
-import src.account.client_processing
+from src.account import account_checker, client_processing, issue_processing
 
 client = Blueprint('client', __name__)
 
@@ -29,3 +28,19 @@ def panel():
 @client.route('/consultation/<issue>')
 def consultation(issue):
     return "consultation " + str(issue)
+
+
+@client.route('/new')
+def new():
+    return render_template('new_ticket.html')
+
+
+@client.route('/new_issue', methods=['POST'])
+def new_issue():
+    user = request.cookies.get('user')
+    topic = request.form.get('subject')
+    desc = request.form.get('desc')
+
+    issue_processing.new_ticket(user, topic, desc, engine)
+
+    return str(topic) + " " + str(desc)

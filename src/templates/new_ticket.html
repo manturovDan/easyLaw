@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href = "/">Главная</a><br>
+Новое обращение
+
+<form method="post" action="/client/new_issue">
+    <input type = "text" name = "subject" placeholder="Тема" required>
+    <textarea name = "desc" placeholder="Обращение"></textarea>
+    <input type = "submit" name = "submit" value="Отправить">
+</form>
+
+{% endblock %}

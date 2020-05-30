@@ -1,5 +1,6 @@
 from flask import request, make_response, render_template
 
+
 def get_tickets(user, engine):
     query = "SELECT id, status, name, meet_time FROM ticket WHERE client='" + user + "'"
 
