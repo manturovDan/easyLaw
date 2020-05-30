@@ -36,3 +36,8 @@ class AuthProcessing:
         with self.engine.connect() as con:
             con.execute(query)
         return hash_val
+
+    def out(self, user, session):
+        query = "UPDATE sessions SET actual=true WHERE user='" + user + "' AND hash = '" + session + "';"
+        with self.engine.connect() as con:
+            con.execute(query)

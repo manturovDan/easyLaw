@@ -37,4 +37,11 @@ def signup_post():
 
 @auth.route('/exit')
 def signout():
-    pass
+    user = request.cookies.get('user')
+    session = request.cookies.get('session')
+    processing.out(user, session)
+
+    resp = make_response(render_template('setcookie.html'))
+    resp.delete_cookie('session')
+    resp.delete_cookie('user')
+    return resp
