@@ -32,7 +32,7 @@ def get_status(issue, engine):
 
 
 def get_full_info(issue, engine):
-    queryT = "SELECT id, client, status, meet_time, name, cr_time, description FROM ticket WHERE id=" + str(issue) + ";"
+    queryT = "SELECT ticket.id, ticket.client, ticket.status, ticket.meet_time, ticket.name, ticket.cr_time, ticket.description, users.name FROM ticket INNER JOIN users ON users.id=ticket.client WHERE ticket.id=" + str(issue) + ";"
     queryL = "SELECT users.id, users.name FROM users INNER JOIN lawyers_tickets ON lawyers_tickets.ticket=" + str(issue) + " AND lawyers_tickets.lawyer = users.id;";
     with engine.connect() as con:
         rst = con.execute(queryT)
@@ -40,6 +40,7 @@ def get_full_info(issue, engine):
 
         issue = {'id' : None, 'client' : None, 'status' : None, 'meet_time' : None, 'name':None, 'cr_time':None, 'desc':None}
         for rowt in rst:
+            print(rowt)
             issue['id'] = rowt[0]
             issue['client'] = rowt[1]
             issue['status'] = rowt[2]
@@ -47,6 +48,7 @@ def get_full_info(issue, engine):
             issue['name'] = rowt[4]
             issue['cr_time'] = rowt[5]
             issue['desc'] = rowt[6]
+            issue['client_name'] = rowt[7]
             break
 
         lawyers = []

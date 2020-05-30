@@ -32,7 +32,7 @@ def consultation(issue):
         return redirect(url_for('account.center'))
     iss, lawyers = issue_processing.get_full_info(issue, engine)
     return render_template('client_conv.html', id=issue, status=iss['status'], name=iss['name'], desc=iss['desc'],
-                           cr_date=iss['cr_time'], lawyers=lawyers)
+                           cr_date=iss['cr_time'], client_name=iss['client_name'], lawyers=lawyers)
 
 
 @client.route('/new')
