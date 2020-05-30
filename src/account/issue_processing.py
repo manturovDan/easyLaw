@@ -38,11 +38,22 @@ def get_full_info(issue, engine):
         rst = con.execute(queryT)
         rsl = con.execute(queryL)
 
+        issue = {'id' : None, 'client' : None, 'status' : None, 'meet_time' : None, 'name':None, 'cr_time':None, 'desc':None}
         for rowt in rst:
-            print(rowt)
+            issue['id'] = rowt[0]
+            issue['client'] = rowt[1]
+            issue['status'] = rowt[2]
+            issue['meet_time'] = rowt[3]
+            issue['name'] = rowt[4]
+            issue['cr_time'] = rowt[5]
+            issue['desc'] = rowt[6]
+            break
 
+        lawyers = []
         for rowl in rsl:
-            print(rowl)
+            lawyers.append({'lawyer_id' : rowl[0], 'lawyer_name' : rowl[1]})
+
+        return issue, lawyers
 
 
 def pay(issue, engine):
