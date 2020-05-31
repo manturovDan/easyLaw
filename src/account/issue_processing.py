@@ -103,3 +103,18 @@ def get_dialogue(issue, engine, limit = None):
             dialogue.append({'id' : row[0], 'author': row[1], 'text' : row[2], 'time': row[3], 'is_admin': row[4]})
 
         return dialogue
+
+
+def allow_dialogue(user, issue, engine):
+    query = "SELECT id FROM ticket WHERE id=" + str(issue) + " AND client=" + str(user) + ";"
+    queryL = "SELECT id FROM lawyers_tickets WHERE ticket=" + str(issue) + " AND lawyer=" + str(user) + ";"
+    with engine.connect() as con:
+        rs = con.execute(query)
+        for row in rs:
+            return True
+
+        rs2 = con.execute(queryL)
+        for row in rs2:
+            return True
+
+        return False

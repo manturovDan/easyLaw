@@ -160,6 +160,7 @@
 
     $("#send").click(function () {
         var message = $("#mess").val();
+        $("#mess").val('');
 
         $.ajax({ url : "/client/send/{{ id }}/" + message, success: function(data) {
             checkMsg();

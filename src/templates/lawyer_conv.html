@@ -168,6 +168,7 @@
 
     $("#send").click(function () {
         var message = $("#mess").val();
+        $("#mess").val('');
 
         $.ajax({ url : "/lawyer/send/{{ id }}/" + message, success: function(data) {
             checkMsg();

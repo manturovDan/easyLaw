@@ -66,12 +66,16 @@ def chat():
 
 @client.route('/ms_cnt/<issue>', methods=['GET'])
 def ms_cnt(issue):
+    if not issue_processing.allow_dialogue(request.cookies.get('user'), issue, engine):
+        return "error", 101
     ret = len(issue_processing.get_dialogue(issue, engine))
     return str(ret)
 
 
 @client.route('/send/<issue>/<message>', methods=['GET'])
 def send_msg(issue, message):
+    if not issue_processing.allow_dialogue(request.cookies.get('user'), issue, engine):
+        return "error", 101
     author = request.cookies.get('user')
     mesages_processing.send(issue, author, message, engine)
     return ""
@@ -79,6 +83,8 @@ def send_msg(issue, message):
 
 @client.route('/last/<issue>/<count>')
 def last_msg(issue, count):
+    if not issue_processing.allow_dialogue(request.cookies.get('user'), issue, engine):
+        return "error", 101
     ret = issue_processing.get_dialogue(issue, engine, count)
     print(ret)
     for r in range(0, len(ret)):
