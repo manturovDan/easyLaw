@@ -87,7 +87,7 @@
             <div class="box">
                 <ul class="messages">
                     {% for i in range(0, messages) %}
-                    {% if dialogues[i]['is_admin'] == 0 and client == 1 %}
+                    {% if dialogues[i]['is_admin'] == 0 %}
                     <li class="sent">
                         <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-39/16/07_question-help-ask-512.png"
                              alt=""/>
@@ -95,7 +95,7 @@
                     </li>
                     {% endif %}
 
-                    {% if dialogues[i]['is_admin'] == 1 and client == 1 %}
+                    {% if dialogues[i]['is_admin'] == 1 %}
                     <li class="replies">
                         <img src="https://cdn1.iconfinder.com/data/icons/security-law/500/law_iconsArtboard_1_copy_7-512.png"
                              alt=""/>
@@ -129,7 +129,28 @@
                 cnt = data;
 
                 $.ajax({ url: "/client/last/{{id}}/" + to_get, success: function(data){
-                    console.log(data)
+                    data.forEach(function(item, i, data) {
+                        console.log(item);
+                        if(item['is_admin'] == 0) {
+                            $(".messages").append("" +
+                                "<li class=\"sent\">\n" +
+                                "    <img src=\"https://cdn3.iconfinder.com/data/icons/basic-ui-39/16/07_question-help-ask-512.png\"\n" +
+                                "         alt=\"\"/>\n" +
+                                "    <p>" + item['text'] + "</p>\n" +
+                                "</li>" +
+                                "")
+                        } else {
+                            $(".messages").append("" +
+                                "<li class=\"replies\">\n" +
+                                "    <img src=\"https://cdn1.iconfinder.com/data/icons/security-law/500/law_iconsArtboard_1_copy_7-512.png\"\n" +
+                                "         alt=\"\"/>\n" +
+                                "    <p>" + item['text'] + "</p>\n" +
+                                "</li>" +
+                                "");
+                        }
+
+                        $(".box").scrollTop($('.box')[0].scrollHeight);
+                    })
                 }, dataType: "json"});
             }
         }, dataType: "json"});
