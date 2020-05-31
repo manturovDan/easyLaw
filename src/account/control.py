@@ -21,12 +21,7 @@ def check_control_session():
 @control.route('/panel')
 def panel():
     user = request.cookies.get('user')
-    tickets = inspector_processing.get_tickets(engine)
+    tickets = inspector_processing.get_bad_tickets(engine)
     return render_template('inspector_panel.html', inspector_name=account_checker.get_name(user, engine),
                            tick_len=len(tickets), tickets=tickets)
 
-
-@control.route('/consultation/<issue>')
-def consultation(issue):
-    iss, lawyers = issue_processing.get_full_info(issue, engine)
-    return render_template('inspector_conv.html', id=issue, status = iss['status'], name = iss['name'], desc=iss['desc'], cr_date=iss['cr_time'], client_name=iss['client_name'], lawyers=lawyers)

@@ -1,10 +1,70 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href = "/auth/exit">Выход</a><br>
-{{ inspector_name }}<br>
-<h3>Все обращения</h3>
-{% for i in range(0, tick_len) %}
-{{ tickets[i] }}} - <a href = "/control/consultation/{{ tickets[i]['id'] }}">{{ tickets[i]['name'] }}</a><br>
-{% endfor %}
+
+<div class="col-sm-12" style = "padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-2 offset-sm-2">
+            <a class="btn btn-outline-info" href="/lawyer/new" role="button">Новые обращения</a>
+        </div>
+        <div class="col-sm-5" style = "text-align: right">
+            <h4>{{ inspector_name }} <i>(Служба контроля)</i></h4>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-outline-danger" href="/auth/exit" role="button">Выход</a>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="col-sm-12" style = "text-align: center; margin-top: 70px;">
+    <h3>Все обращения</h3><br>
+</div>
+
+<div class = "col-sm-8 offset-sm-2 tickets">
+    {% for i in range(0, tick_len) %}
+    <div class = "ticket {% if tickets[i]['harm'] != '-' %} danger {% endif %}">
+        <b>Тема: </b><a href = "#">{{ tickets[i]['name'] }}</a><br>
+        <b>Клиент: </b>
+                {{ tickets[i]['client'] }}
+                <br>
+        <b>Статус обращения: </b>
+                {% if tickets[i]['status'] == 1 %}
+                    Ожидает рассмотрения
+                {% endif %}
+
+                {% if tickets[i]['status'] == 2 %}
+                    Назначена встреча
+                {% endif %}
+
+                {% if tickets[i]['status'] == 3 %}
+                    Сообщение от юриста
+                {% endif %}
+
+                {% if tickets[i]['status'] == 4 %}
+                    В работе
+                {% endif %}
+
+                {% if tickets[i]['status'] == 5 %}
+                    Ожидание действий клиента
+                {% endif %}
+
+                {% if tickets[i]['status'] == 6 %}
+                    Завершено
+                {% endif %}
+
+                {% if tickets[i]['status'] == 7 %}
+                    Ожидание платежа за обращение
+                {% endif %}
+
+                {% if tickets[i]['status'] == 8 %}
+                    Поиск юриста
+                {% endif %}
+                <br>
+                <b>Вызывает подозрение: </b> {{ tickets[i]['harm'] }} <br>
+
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
