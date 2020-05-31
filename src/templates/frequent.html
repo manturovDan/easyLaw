@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="col-sm-12" style="padding-top:50px;">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-1">
+            <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12" style = "text-align: center; margin-top: 70px;">
+    <h3>Здесь Вы можете найти ответы на наиболее частые и типовые запросы</h3><br>
+</div>
+
+<div class = "col-sm-8 offset-sm-2 tickets">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id = "MyInput" placeholder="Поиск..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="myFunction()">Найти</button>
+      </div>
+    </div>
+</div>
+
+<div class="col-sm-6 offset-sm-3">
+    <ul id="blog" style = "list-style-type: none;">
+    {% for i in range(0, count) %}
+        <li style = "width: 100%; line-height: 50px; display: block; padding: 15px; margin: 30px 00px; border: 1px solid gray; border-radius: 15px;"><a href="/article/{{ blog[i]['id'] }}">{{ blog[i]['topic'] }}</a></li>
+    {% endfor %}
+</ul>
+</div>
+
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('MyInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("blog");
+  li = ul.getElementsByTagName('li');
+    console.log(li)
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+{% endblock %}

@@ -52,3 +52,27 @@ def get_name(id, engine):
             return row[0]
 
         return "###"
+
+
+def get_blog(engine):
+    query = "SELECT id, topic, text FROM blog ORDER by id DESC;"
+
+    blog = []
+    with engine.connect() as con:
+        rs = con.execute(query)
+
+        for row in rs:
+            blog.append({'id': row[0], 'topic' : row[1], 'text' : row[2]})
+
+        return blog
+
+
+def get_art(art, engine):
+    query = "SELECT id, topic, text FROM blog WHERE id = " + str(art) + " ;"
+    with engine.connect() as con:
+        rs = con.execute(query)
+
+        for row in rs:
+            return {'id': row[0], 'topic' : row[1], 'text' : row[2]}
+
+        return None

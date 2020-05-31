@@ -32,3 +32,18 @@ def pay(issue):
 def pay_post(issue):
     issue_processing.pay(issue, engine)
     return redirect(url_for('account.center'))
+
+
+@account.route('/base')
+def blog():
+    blog = account_checker.get_blog(engine)
+    print(blog)
+    return render_template('frequent.html', blog=blog, count = len(blog))
+
+
+@account.route('/article/<art>')
+def article(art):
+    art = account_checker.get_art(art, engine)
+    if art == None:
+        return redirect('/')
+    return render_template('article.html', topic=art['topic'], text=art['text'])
