@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="col-sm-12" style = "padding-top:50px;">
+<div class="col-sm-12" style="padding-top:50px;">
     <div class="row">
         <div class="col-sm-4 offset-sm-1">
             <a class="btn btn-outline-primary" href="/" role="button">< На главную</a>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="col-sm-10 offset-sm-1" style = "margin-top:30px;">
+<div class="col-sm-10 offset-sm-1" style="margin-top:30px;">
     <div class="row">
         <div class="col-sm-4">
             <div class="col-sm-12">
@@ -31,35 +31,35 @@
             <div class="col-sm-12">
                 <b>Статус: </b>
                 {% if status == 1 %}
-                    Ожидает рассмотрения
+                Ожидает рассмотрения
                 {% endif %}
 
                 {% if status == 2 %}
-                    Назначена встреча
+                Назначена встреча
                 {% endif %}
 
                 {% if status == 3 %}
-                    Сообщение от юриста
+                Сообщение от юриста
                 {% endif %}
 
                 {% if status == 4 %}
-                    В работе
+                В работе
                 {% endif %}
 
                 {% if status == 5 %}
-                    Ожидание действий клиента
+                Ожидание действий клиента
                 {% endif %}
 
                 {% if status == 6 %}
-                    Завершено
+                Завершено
                 {% endif %}
 
                 {% if status == 7 %}
-                    Ожидание платежа за обращение
+                Ожидание платежа за обращение
                 {% endif %}
 
                 {% if status == 8 %}
-                    Поиск юриста
+                Поиск юриста
                 {% endif %}
             </div>
 
@@ -80,8 +80,8 @@
                 <br>
                 {% if status == 8 %}
                 <div class="col-sm-12">
-                    <form action = "/lawyer/take/{{ id }}" method="post">
-                        <button type="submit" class = "btn btn-primary">Взять обращение</button>
+                    <form action="/lawyer/take/{{ id }}" method="post">
+                        <button type="submit" class="btn btn-primary">Взять обращение</button>
                         <a class="btn btn-outline-primary" href="/lawyer/new" role="button">< Назад</a>
                     </form>
                 </div>
@@ -89,12 +89,90 @@
             </div>
         </div>
 
-        <div class="col-sm-6 messenger">
-            Тут будут сообщения
+        <div class="col-sm-8 messenger">
+            <div class="box">
+                <ul class="messages">
+                    {% for i in range(0, messages) %}
+                    {% if dialogues[i]['is_admin'] == 1 %}
+                    <li class="sent">
+                        <img src="https://cdn1.iconfinder.com/data/icons/security-law/500/law_iconsArtboard_1_copy_7-512.png"
+                             alt=""/>
+                        <p>{{ dialogues[i]['text'] }}</p>
+                    </li>
+                    {% endif %}
+
+                    {% if dialogues[i]['is_admin'] == 0 %}
+                    <li class="replies">
+                        <img src="https://cdn3.iconfinder.com/data/icons/basic-ui-39/16/07_question-help-ask-512.png"
+                             alt=""/>
+                        <p>{{ dialogues[i]['text'] }}</p>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mes_form">
+                <input class="form-control" type="text" id="mess" name="message" placeholder="Ваше сообщение"
+                       style="line-height: 45px;width: 60%; float: left;">
+                <button class="btn btn-primary mb-2" id="send" type="submit" style="margin: 0px 15px;">Отправить
+                </button>
+                <a href="https://www.filedropper.com/" target="_blank" class="btn btn-primary" style="margin-top: -8px;"
+                   role="button">Файл</a>
+            </div>
         </div>
 
     </div>
 </div>
 
+<script>
+    $(".box").scrollTop($('.box')[0].scrollHeight);
+    var cnt = '{{ messages }}';
+    //alert(cnt)
 
-{% endblock %
+    function checkMsg(){
+        $.ajax({ url: "/lawyer/ms_cnt/{{id}}", success: function(data){
+            if(data != cnt) {
+                var to_get = data-cnt;
+                console.log(to_get)
+                cnt = data;
+
+                $.ajax({ url: "/lawyer/last/{{id}}/" + to_get, success: function(data){
+                    data.forEach(function(item, i, data) {
+                        console.log(item);
+                        if(item['is_admin'] == 0) {
+                            $(".messages").append("" +
+                                "<li class=\"sent\">\n" +
+                                "    <img src=\"https://cdn3.iconfinder.com/data/icons/basic-ui-39/16/07_question-help-ask-512.png\"\n" +
+                                "         alt=\"\"/>\n" +
+                                "    <p>" + item['text'] + "</p>\n" +
+                                "</li>" +
+                                "")
+                        } else {
+                            $(".messages").append("" +
+                                "<li class=\"replies\">\n" +
+                                "    <img src=\"https://cdn1.iconfinder.com/data/icons/security-law/500/law_iconsArtboard_1_copy_7-512.png\"\n" +
+                                "         alt=\"\"/>\n" +
+                                "    <p>" + item['text'] + "</p>\n" +
+                                "</li>" +
+                                "");
+                        }
+
+                        $(".box").scrollTop($('.box')[0].scrollHeight);
+                    })
+                }, dataType: "json"});
+            }
+        }, dataType: "json"});
+    }
+
+    setInterval(checkMsg, 3000);
+
+    $("#send").click(function () {
+        var message = $("#mess").val();
+
+        $.ajax({ url : "/lawyer/send/{{ id }}/" + message, success: function(data) {
+            checkMsg();
+        },dataType: "json" });
+    })
+</script>
+
+{% endblock %}

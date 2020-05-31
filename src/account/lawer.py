@@ -1,6 +1,8 @@
+import json
+
 from flask import Blueprint, redirect, url_for, request, render_template
 from src import db, create_app
-from src.account import account_checker, lawyer_processing, issue_processing
+from src.account import account_checker, lawyer_processing, issue_processing, mesages_processing
 
 lawyer = Blueprint('lawyer', __name__)
 
@@ -32,7 +34,9 @@ def consultation(issue):
     user = request.cookies.get('user')
     if lawyer_processing.can_i_part(user, issue, engine):
         iss, lawyers = issue_processing.get_full_info(issue, engine)
-        return render_template('lawyer_conv.html', id=issue, status = iss['status'], name = iss['name'], desc=iss['desc'], cr_date=iss['cr_time'], client_name=iss['client_name'], lawyers=lawyers, lawyers_count=len(lawyers))
+        dialogues = issue_processing.get_dialogue(issue, engine)
+        return render_template('lawyer_conv.html', id=issue, status = iss['status'], name = iss['name'], desc=iss['desc'], cr_date=iss['cr_time'], client_name=iss['client_name'], lawyers=lawyers, lawyers_count=len(lawyers),
+                               dialogues=dialogues, client=0, messages = len(dialogues))
     return redirect(url_for('account.center'))
 
 
@@ -49,3 +53,25 @@ def take(issue):
         return redirect(url_for('lawyer.consultation', issue=issue))
     else: #is taken
         return redirect(url_for('account.center')) #or err page
+
+
+@lawyer.route('/ms_cnt/<issue>', methods=['GET'])
+def ms_cnt(issue):
+    ret = len(issue_processing.get_dialogue(issue, engine))
+    return str(ret)
+
+
+@lawyer.route('/send/<issue>/<message>', methods=['GET'])
+def send_msg(issue, message):
+    author = request.cookies.get('user')
+    mesages_processing.send(issue, author, message, engine)
+    return ""
+
+
+@lawyer.route('/last/<issue>/<count>')
+def last_msg(issue, count):
+    ret = issue_processing.get_dialogue(issue, engine, count)
+    print(ret)
+    for r in range(0, len(ret)):
+        ret[r]['time'] = 0
+    return json.dumps(ret)
